@@ -44,11 +44,6 @@ jobs:
         run:
           echo 'null works'
 
-      - name: Check matrix-key
-        if: ${{ inputs.matrix-key != null }}
-        run:
-          echo 'ok'
-
       - name: Check matrix
         if: ${{ toJSON(matrix) != 'null' }}
         run:
@@ -56,8 +51,7 @@ jobs:
 
 
       - name: Check matrix content
-        # if: ${{ inputs.matrix-key != null }} && ${{ toJSON(matrix.(inputs.matrix-key)) != 'null' }}
         if: inputs.matrix-key
         run:
-          echo ${{ toJSON(matrix[format('{0}', inputs.matrix-key)]) }}
+          echo ${{ inputs.matrix-key }}
 
