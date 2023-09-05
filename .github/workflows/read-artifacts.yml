@@ -3,18 +3,13 @@ on:
   workflow_call:
 
     inputs:
-      image-artifacts:
-        required: false
-        type: string
-        default: null
-        description: |
-          Comma-separated list of uploaded image artifact files
-          (where an image artifact file is a text file containing the
-          full URI to a container image).
       runs-on:
         required: false
         type: string
         default: ubuntu-latest
+      image-list:
+        required: true
+        type: string
 
 
 jobs:
@@ -30,22 +25,13 @@ jobs:
 
     steps:
 
-      - name: Inspect
-        if: ${{ inputs.image-artifacts }}
-        run: |
-          echo "image artifacts: ${{ inputs.image-artifacts }}"
-
       - name: Check matrix
         if: ${{ toJSON(matrix) == 'null' }}
         run:
           echo 'null works'
 
-      - name: Restore cache
-        uses: actions/cache/restore@v3
-        with:
-          path: ./image-uri
-          key: images-${{ github.run_id }}
-
       - run: |
-          ls -lia
-          ls -lia ./image-uri
+          for v in ${{ inputs.image-list }}; do
+            v=$(echo "${v}" | tr '-' '_')
+            echo "TF_VAR_image_${v}: $TF_VAR_image_${v}"
+          done

@@ -23,17 +23,7 @@ jobs:
       - run: |
           mkdir -p ./image-uri
           echo "example.ecr/${{ matrix.functions }}:${{ github.run_id }}" > ./image-uri/image-${{ matrix.functions }}
+          echo "TF_VAR_image_$(echo ${{ matrix.functions }} | tr '-' '_')" >> $GITHUB_ENV
 
-      - name: cache outputs
-        uses: actions/cache/save@v3
-        with:
-          path: ./image-uri
-          key: images-${{ github.run_id }}
-          restore-keys: images-
-
-  test-matrix:
-    strategy:
-      matrix:
-        functions: [ test-1, test-2 ]
-
+  mock-deploy:
     uses: ./.github/workflows/read-artifacts.yml
