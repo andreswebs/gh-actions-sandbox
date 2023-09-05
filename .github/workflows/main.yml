@@ -24,3 +24,4 @@ jobs:
     uses: ./.github/workflows/read-artifacts.yml
     with:
       image-artifacts: example-1,example-2,example-3
+      matrix-key: example
