@@ -11,6 +11,6 @@ on:
 jobs:
 
   test:
-    uses: ./.github/workflows/read-artifacts.yml@main
+    uses: ./.github/workflows/read-artifacts.yml
     with:
       image-artifacts: example-1,example-2,example-3
