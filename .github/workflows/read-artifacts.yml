@@ -7,10 +7,10 @@ on:
         required: false
         type: string
         default: ubuntu-latest
-      image-list:
-        required: true
+      matrix-step-name:
+        required: false
         type: string
-
+        default: null
 
 jobs:
 
@@ -30,9 +30,12 @@ jobs:
         run:
           echo 'null works'
 
-      - run: |
-          for v in ${{ inputs.image-list }}; do
-            v=$(echo "${v}" | tr '-' '_')
-            img_var="TF_VAR_image_${v}"
-            echo "${img_var}: ${!img_var}"
-          done
+      - id: read
+        uses: cloudposse/github-action-matrix-outputs-read@main
+        if: inputs.matrix-step-name
+        with:
+          matrix-step-name: ${{ inputs.matrix-step-name }}
+
+      - if: inputs.matrix-step-name
+        run: |
+          echo '${{ steps.read.outputs.result }}'

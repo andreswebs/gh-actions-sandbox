@@ -22,12 +22,8 @@ jobs:
     steps:
       - id: build
         run: |
-          mkdir -p ./image-uri
-          IMG="example.ecr/${{ matrix.functions }}:${{ github.run_id }}"
-          FUN=$(echo ${{ matrix.functions }} | tr '-' '_')
-          echo "${IMG}" > ./image-uri/image-${{ matrix.functions }}
-          echo "TF_VAR_image_${FUN}=${IMG}" >> $GITHUB_ENV
-          echo "image=${IMG}" >> $GITHUB_OUTPUT
+          IMAGE="example.ecr/${{ matrix.functions }}:${{ github.run_id }}"
+          echo "image=${IMAGE}" >> $GITHUB_OUTPUT
 
       - uses: cloudposse/github-action-matrix-outputs-write@main
         id: out
