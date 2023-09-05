@@ -22,9 +22,10 @@ jobs:
     steps:
       - run: |
           mkdir -p ./image-uri
-          echo "example.ecr/${{ matrix.functions }}:${{ github.build_id }}" > ./image-uri/image-${{ matrix.functions }}
+          echo "example.ecr/${{ matrix.functions }}:${{ github.run_id }}" > ./image-uri/image-${{ matrix.functions }}
+
       - name: cache outputs
-        uses: actions/cache@v3
+        uses: actions/cache/save@v3
         with:
           path: ./image-uri
           key: images-${{ github.run_id }}
