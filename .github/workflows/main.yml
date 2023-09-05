@@ -28,6 +28,7 @@ jobs:
           echo "TF_VAR_image_${FUN}=${IMG}" >> $GITHUB_ENV
 
   mock-deploy:
+    needs: [ mock-build ]
     uses: ./.github/workflows/read-artifacts.yml
     with:
       image-list: test-1 test-2

@@ -33,5 +33,5 @@ jobs:
       - run: |
           for v in ${{ inputs.image-list }}; do
             v=$(echo "${v}" | tr '-' '_')
-            echo "TF_VAR_image_${v}: $TF_VAR_image_${v}"
+            echo "TF_VAR_image_${v}: ${TF_VAR_image_${v}}"
           done
