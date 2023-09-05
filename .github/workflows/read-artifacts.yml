@@ -25,11 +25,6 @@ jobs:
 
     steps:
 
-      - name: Check matrix
-        if: ${{ toJSON(matrix) == 'null' }}
-        run:
-          echo 'null works'
-
       - id: read
         uses: cloudposse/github-action-matrix-outputs-read@main
         if: inputs.matrix-step-name
