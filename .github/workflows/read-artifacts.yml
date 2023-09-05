@@ -16,10 +16,6 @@ on:
         type: string
         default: ubuntu-latest
 
-      matrix-key:
-        required: false
-        type: string
-        default: null
 
 jobs:
 
@@ -44,14 +40,12 @@ jobs:
         run:
           echo 'null works'
 
-      - name: Check matrix
-        if: ${{ toJSON(matrix) != 'null' }}
-        run:
-          echo '${{ toJSON(matrix) }}'
+      - name: read cache
+        uses: actions/cache@v3
+        with:
+          path: ./image-uri
+          key: images-${{ github.run_id }}
 
-
-      - name: Check matrix content
-        if: inputs.matrix-key
-        run:
-          echo ${{ inputs.matrix-key }}
-
+      - run: |
+          ls -lia
+          ls -lia ./image-uri

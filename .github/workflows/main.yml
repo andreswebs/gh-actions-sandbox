@@ -10,18 +10,26 @@ on:
 
 jobs:
 
-  # test-single:
-  #   uses: ./.github/workflows/read-artifacts.yml
-  #   with:
-  #     image-artifacts: example-1,example-2,example-3
 
+  mock-build:
+    strategy:
+      matrix:
+        functions: [ test-1, test-2 ]
+
+    steps:
+      - run: |
+          mkdir -p ./image-uri
+          echo "example.ecr/${{ matrix.functions }}:${{ github.build_id }}" > ./image-uri/image-${{ matrix.functions }}
+      - name: cache outputs
+        uses: actions/cache@v3
+        with:
+          path: ./image-uri
+          key: images-${{ github.run_id }}
+          restore-keys: images-
 
   test-matrix:
     strategy:
       matrix:
-        example: [ test-1, test-2 ]
+        functions: [ test-1, test-2 ]
 
     uses: ./.github/workflows/read-artifacts.yml
-    with:
-      image-artifacts: example-1,example-2,example-3
-      matrix-key: ${{ toJson(matrix.example) }}
