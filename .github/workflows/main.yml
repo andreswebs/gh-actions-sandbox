@@ -29,13 +29,13 @@ jobs:
           echo "TF_VAR_image_${FUN}=${IMG}" >> $GITHUB_ENV
           echo "image=${IMG}" >> $GITHUB_OUTPUT
 
-        - uses: cloudposse/github-action-matrix-outputs-write@main
-          id: out
-          with:
-            matrix-step-name: ${{ github.job }}
-            matrix-key: ${{ matrix.functions }}
-            outputs: |-
-              image: ${{ steps.build.outputs.image }}
+      - uses: cloudposse/github-action-matrix-outputs-write@main
+        id: out
+        with:
+          matrix-step-name: ${{ github.job }}
+          matrix-key: ${{ matrix.functions }}
+          outputs: |-
+            image: ${{ steps.build.outputs.image }}
 
   # mock-deploy:
   #   needs: [ mock-build ]
