@@ -22,8 +22,10 @@ jobs:
     steps:
       - run: |
           mkdir -p ./image-uri
-          echo "example.ecr/${{ matrix.functions }}:${{ github.run_id }}" > ./image-uri/image-${{ matrix.functions }}
-          echo "TF_VAR_image_$(echo ${{ matrix.functions }} | tr '-' '_')" >> $GITHUB_ENV
+          IMG="example.ecr/${{ matrix.functions }}:${{ github.run_id }}"
+          FUN=$(echo ${{ matrix.functions }} | tr '-' '_')
+          echo "${IMG}" > ./image-uri/image-${{ matrix.functions }}
+          echo "TF_VAR_image_${FUN}=${IMG}" >> $GITHUB_ENV
 
   mock-deploy:
     uses: ./.github/workflows/read-artifacts.yml
