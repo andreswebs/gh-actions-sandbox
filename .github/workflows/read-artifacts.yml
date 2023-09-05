@@ -16,6 +16,8 @@ on:
         type: string
         default: ubuntu-latest
 
+    outputs
+
 jobs:
 
   test:
@@ -32,4 +34,4 @@ jobs:
       - name: Conditional Step
         if: ${{ inputs.image-artifacts }}
         run: |
-          echo "image artifacts: ${{ inputs.image-artifacts }}"
+          echo "image artifacts: ${{ toJSON(inputs.image-artifacts) }}"
