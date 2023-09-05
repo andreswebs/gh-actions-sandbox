@@ -29,7 +29,12 @@ jobs:
 
     steps:
 
-      - name: Conditional Step
+      - name: Inspect
         if: ${{ inputs.image-artifacts }}
         run: |
-          echo "image artifacts: ${{ toJSON(inputs.image-artifacts) }}"
+          echo "image artifacts: ${{ inputs.image-artifacts }}"
+
+      - name: Check matrix
+        if: ${{ matrix }}
+        run:
+          echo ${{ matrix }}
