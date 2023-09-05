@@ -10,13 +10,13 @@ on:
 
 jobs:
 
-  test:
-    uses: ./.github/workflows/read-artifacts.yml
-    with:
-      image-artifacts: example-1,example-2,example-3
+  # test-single:
+  #   uses: ./.github/workflows/read-artifacts.yml
+  #   with:
+  #     image-artifacts: example-1,example-2,example-3
 
 
-  test-2:
+  test-matrix:
     strategy:
       matrix:
         example: [ test-1, test-2]

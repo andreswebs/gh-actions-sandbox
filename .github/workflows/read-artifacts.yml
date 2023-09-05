@@ -35,7 +35,7 @@ jobs:
           echo "image artifacts: ${{ inputs.image-artifacts }}"
 
       - name: Check matrix
-        if: ${{ toJSON(matrix) == null }}
+        if: ${{ toJSON(matrix) == 'null' }}
         run:
           echo 'null works'
 
