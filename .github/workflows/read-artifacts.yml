@@ -16,6 +16,11 @@ on:
         type: string
         default: ubuntu-latest
 
+      matrix-key:
+        required: false
+        type: string
+        default: null
+
 jobs:
 
   test:
@@ -39,8 +44,19 @@ jobs:
         run:
           echo 'null works'
 
+      - name: Check matrix-key
+        if: ${{ inputs.matrix-key != null }}
+        run:
+          echo 'ok'
+
       - name: Check matrix
         if: ${{ toJSON(matrix) != 'null' }}
         run:
           echo '${{ toJSON(matrix) }}'
+
+
+      - name: Check matrix content
+        if: ${{ inputs.matrix-key != null }} && ${{ toJSON(matrix.${{ inputs.matrix-key }}) != 'null' }}
+        run:
+          echo '${{ toJSON(matrix.${{ inputs.matrix-key }}) }}'
 
