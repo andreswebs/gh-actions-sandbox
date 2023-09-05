@@ -38,3 +38,8 @@ jobs:
         if: ${{ toJSON(matrix) == '{}' }}
         run:
           echo '${{ toJSON(matrix) }}'
+
+      - name: Check matrix
+        if: ${{ toJSON(matrix) != '{}' }}
+        run:
+          echo '${{ toJSON(matrix) }}'
