@@ -17,7 +17,10 @@ jobs:
 
 
   test-2:
-    uses: ./.github/workflows/read-artifacts.yml
     strategy:
       matrix:
         example: [ test-1, test-2]
+
+    uses: ./.github/workflows/read-artifacts.yml
+    with:
+      image-artifacts: example-1,example-2,example-3
