@@ -20,15 +20,25 @@ jobs:
         functions: [ test-1, test-2 ]
 
     steps:
-      - run: |
+      - id: build
+        run: |
           mkdir -p ./image-uri
           IMG="example.ecr/${{ matrix.functions }}:${{ github.run_id }}"
           FUN=$(echo ${{ matrix.functions }} | tr '-' '_')
           echo "${IMG}" > ./image-uri/image-${{ matrix.functions }}
           echo "TF_VAR_image_${FUN}=${IMG}" >> $GITHUB_ENV
+          echo "image=${IMG}" >> $GITHUB_OUTPUT
 
-  mock-deploy:
-    needs: [ mock-build ]
-    uses: ./.github/workflows/read-artifacts.yml
-    with:
-      image-list: test-1 test-2
+        - uses: cloudposse/github-action-matrix-outputs-write@main
+          id: out
+          with:
+            matrix-step-name: ${{ github.job }}
+            matrix-key: ${{ matrix.functions }}
+            outputs: |-
+              image: ${{ steps.build.outputs.image }}
+
+  # mock-deploy:
+  #   needs: [ mock-build ]
+  #   uses: ./.github/workflows/read-artifacts.yml
+  #   with:
+  #     image-list: test-1 test-2
