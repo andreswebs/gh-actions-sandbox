@@ -27,3 +27,5 @@ jobs:
 
   mock-deploy:
     uses: ./.github/workflows/read-artifacts.yml
+    with:
+      image-list: test-1 test-2
