@@ -56,7 +56,8 @@ jobs:
 
 
       - name: Check matrix content
-        if: ${{ inputs.matrix-key != null }} && ${{ toJSON(matrix.(inputs.matrix-key)) != 'null' }}
+        # if: ${{ inputs.matrix-key != null }} && ${{ toJSON(matrix.(inputs.matrix-key)) != 'null' }}
+        if: ${{ inputs.matrix-key != null }}
         run:
-          echo '${{ toJSON(matrix.(inputs.matrix-key))) }}'
+          echo '${{ toJSON(format(matrix[{0}], inputs.matrix-key)) }}'
 
