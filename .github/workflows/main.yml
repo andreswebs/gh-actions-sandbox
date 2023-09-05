@@ -12,6 +12,9 @@ jobs:
 
 
   mock-build:
+
+    runs-on: ubuntu-latest
+
     strategy:
       matrix:
         functions: [ test-1, test-2 ]
