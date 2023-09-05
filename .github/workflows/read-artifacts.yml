@@ -1,0 +1,35 @@
+---
+on:
+  workflow_call:
+
+    inputs:
+      image-artifacts:
+        required: false
+        type: string
+        default: null
+        description: |
+          Comma-separated list of uploaded image artifact files
+          (where an image artifact file is a text file containing the
+          full URI to a container image).
+      runs-on:
+        required: false
+        type: string
+        default: ubuntu-latest
+
+jobs:
+
+  test:
+
+    runs-on: ${{ inputs.runs-on }}
+
+    defaults:
+      run:
+        shell: bash
+        # working-directory: ${{ inputs.working-directory }}
+
+    steps:
+
+      - name: Conditional Step
+        if: ${{ inputs.image-artifacts }}
+        run: |
+          echo "image artifacts: ${{ inputs.image-artifacts }}""
