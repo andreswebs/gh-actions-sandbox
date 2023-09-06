@@ -11,10 +11,6 @@ on:
         required: false
         type: string
         default: null
-      matrix-output-key:
-        required: false
-        type: string
-        default: null
 jobs:
 
   test:
@@ -41,6 +37,6 @@ jobs:
           matrix-step-name: ${{ inputs.matrix-step-name }}
 
       - name: Inspect
-        if: ${{ inputs.matrix-step-name && inputs.matrix-output-key }}
+        if: ${{ inputs.matrix-step-name }}
         run: |
-          echo '${{ steps.read.outputs.result }}' | jq '.${{ inputs.matrix-output-key }}'
+          echo '${{ steps.read.outputs.result }}' | jq '.'

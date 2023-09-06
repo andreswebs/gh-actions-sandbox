@@ -27,4 +27,3 @@ jobs:
     uses: ./.github/workflows/read-artifacts.yml
     with:
       matrix-step-name: mock-build
-      matrix-output-key: matrix-output

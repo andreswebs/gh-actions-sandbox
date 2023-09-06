@@ -46,7 +46,7 @@ jobs:
           matrix-step-name: ${{ inputs.matrix-step-name }}
           matrix-key: ${{ inputs.matrix-key }}
           outputs: |-
-            matrix-output: ${{ steps.build.outputs.image }}
+            image: ${{ steps.build.outputs.image }}
 
     outputs:
-      image: ${{ steps.matrix-out.outputs.matrix-output }}
+      image: ${{ toJson(fromJson(steps.matrix-out.outputs.image).image) }}
