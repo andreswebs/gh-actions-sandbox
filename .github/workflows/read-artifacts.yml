@@ -41,6 +41,6 @@ jobs:
           matrix-step-name: ${{ inputs.matrix-step-name }}
 
       - name: Inspect
-        if: inputs.matrix-step-name
+        if: ${{ inputs.matrix-step-name && inputs.matrix-output-key }}
         run: |
-          echo '${{ fromJson(steps.read.outputs.result).image }}'
+          echo '${{ steps.read.outputs.result }}' | jq '.${{ inputs.matrix-output-key }}'
