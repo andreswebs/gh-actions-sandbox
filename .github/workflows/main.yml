@@ -18,7 +18,7 @@ jobs:
 
     uses: ./.github/workflows/mock-build.yml
     with:
-      matrix-step-name: ${{ github.job }}
+      matrix-step-name: mock-build
       matrix-key: ${{ matrix.functions }}
 
     # runs-on: ubuntu-latest
