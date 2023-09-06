@@ -28,7 +28,7 @@ jobs:
 
     steps:
 
-      - name: Install `jq`
+      - name: Install jq
         uses: dcarbone/install-jq-action@v1.0.1
         with:
           version: '1.6'
@@ -43,5 +43,4 @@ jobs:
       - name: Inspect
         if: inputs.matrix-step-name
         run: |
-          echo '${{ steps.read.outputs.result }}'
-          echo '${{ steps.read.outputs.result }}' | jq 'keys[]'
+          echo '${{ fromJson(steps.read.outputs.result).image }}'
