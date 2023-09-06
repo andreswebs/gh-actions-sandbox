@@ -22,8 +22,8 @@ jobs:
       matrix-key: ${{ matrix.functions }}
 
 
-  mock-deploy:
+  images-tfvars:
     needs: [ mock-build ]
-    uses: ./.github/workflows/read-artifacts.yml
+    uses: ./.github/workflows/images-tfvars.yml
     with:
       matrix-step-name: mock-build
