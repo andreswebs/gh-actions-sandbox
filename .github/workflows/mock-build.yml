@@ -1,0 +1,52 @@
+---
+on:
+  workflow_call:
+
+    inputs:
+      runs-on:
+        required: false
+        type: string
+        default: ubuntu-latest
+      matrix-step-name:
+        required: false
+        type: string
+        default: null
+      matrix-key:
+        required: false
+        type: string
+        default: null
+
+    outputs:
+      image:
+        description: "Image"
+        value: ${{ jobs.build.outputs.image }}
+
+jobs:
+
+  build:
+
+    runs-on: ${{ inputs.runs-on }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Build
+        id: build
+        run: |
+          IMAGE="example.ecr/${{ inputs.matrix-key }}:${{ github.run_id }}"
+          echo "image=${IMAGE}" >> $GITHUB_OUTPUT
+
+      - name: Matrix Outputs
+        id: matrix-out
+        uses: cloudposse/github-action-matrix-outputs-write@main
+        if: inputs.matrix-step-name && inputs.matrix-key
+        with:
+          matrix-step-name: ${{ inputs.matrix-step-name }}
+          matrix-key: ${{ inputs.matrix-key }}
+          outputs: |-
+            image: ${{ steps.build.outputs.image }}
+
+    outputs:
+      image: ${{ steps.matrix-out.outputs.image }}

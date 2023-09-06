@@ -10,28 +10,36 @@ on:
 
 jobs:
 
-
   mock-build:
-
-    runs-on: ubuntu-latest
 
     strategy:
       matrix:
         functions: [ test-1, test-2 ]
 
-    steps:
-      - id: build
-        run: |
-          IMAGE="example.ecr/${{ matrix.functions }}:${{ github.run_id }}"
-          echo "image=${IMAGE}" >> $GITHUB_OUTPUT
+    uses: ./.github/workflows/mock-build.yml
+    with:
+      matrix-step-name: ${{ github.job }}
+      matrix-key: ${{ matrix.functions }}
 
-      - uses: cloudposse/github-action-matrix-outputs-write@main
-        id: out
-        with:
-          matrix-step-name: ${{ github.job }}
-          matrix-key: ${{ matrix.functions }}
-          outputs: |-
-            image: ${{ steps.build.outputs.image }}
+    # runs-on: ubuntu-latest
+
+    # strategy:
+    #   matrix:
+    #     functions: [ test-1, test-2 ]
+
+    # steps:
+    #   - id: build
+    #     run: |
+    #       IMAGE="example.ecr/${{ matrix.functions }}:${{ github.run_id }}"
+    #       echo "image=${IMAGE}" >> $GITHUB_OUTPUT
+
+    #   - uses: cloudposse/github-action-matrix-outputs-write@main
+    #     id: out
+    #     with:
+    #       matrix-step-name: ${{ github.job }}
+    #       matrix-key: ${{ matrix.functions }}
+    #       outputs: |-
+    #         image: ${{ steps.build.outputs.image }}
 
   mock-deploy:
     needs: [ mock-build ]
