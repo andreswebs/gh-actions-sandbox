@@ -31,6 +31,9 @@ jobs:
       run:
         shell: bash
 
+    outputs:
+      image: ${{ steps.matrix-out.outputs.image }}
+
     steps:
       - name: Build
         id: build
@@ -47,6 +50,3 @@ jobs:
           matrix-key: ${{ inputs.matrix-key }}
           outputs: |-
             image: ${{ steps.build.outputs.image }}
-
-    outputs:
-      image: ${{ steps.matrix-out.outputs.image }}

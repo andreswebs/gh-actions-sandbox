@@ -49,6 +49,7 @@ jobs:
       - name: Parse matrix outputs
         id: parse
         run: |
+          echo '${{ steps.read.outputs.result }}'
           echo '${{ steps.read.outputs.result }}' | jq -r '.image | to_entries[] | "\(.key|gsub("-";"_")) = \"\(.value)\"" | "image_\(.)"' > ${{ inputs.tfvars }}
           echo "images-tfvars=${{ inputs.tfvars }}" >> $GITHUB_OUTPUT
 
