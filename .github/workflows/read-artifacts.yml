@@ -8,9 +8,8 @@ on:
         type: string
         default: ubuntu-latest
       matrix-step-name:
-        required: false
+        required: true
         type: string
-        default: null
 jobs:
 
   test:
@@ -20,7 +19,6 @@ jobs:
     defaults:
       run:
         shell: bash
-        # working-directory: ${{ inputs.working-directory }}
 
     steps:
 
@@ -32,11 +30,18 @@ jobs:
       - name: Read matrix outputs
         id: read
         uses: cloudposse/github-action-matrix-outputs-read@main
-        if: inputs.matrix-step-name
         with:
           matrix-step-name: ${{ inputs.matrix-step-name }}
 
       - name: Inspect
-        if: ${{ inputs.matrix-step-name }}
         run: |
-          echo '${{ steps.read.outputs.result }}' | jq '.image'
+          echo '${{ steps.read.outputs.result }}'
+
+
+      - name: Parse
+        run: |
+          echo '${{ steps.read.outputs.result }}' | jq -r '.image | to_entries[] | "\(.key|gsub("-";"_"))=\"\(.value)\"" | "TF_VAR_\(.)"' > output.txt
+          cat output.txt
+
+
+
