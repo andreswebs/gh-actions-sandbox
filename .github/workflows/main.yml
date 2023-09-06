@@ -27,3 +27,25 @@ jobs:
     uses: ./.github/workflows/images-tfvars.yml
     with:
       matrix-step-name: mock-build
+
+
+  mock-deploy:
+    needs: [ images-tfvars ]
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+
+      - name: Download tfvars
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ needs.images-tfvars.outputs.tfvars }}
+          path: ./
+
+      - name: Inspect
+        run: |
+          cat ${{ needs.images-tfvars.outputs.tfvars }}
