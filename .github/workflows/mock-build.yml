@@ -49,4 +49,4 @@ jobs:
             image: ${{ steps.build.outputs.image }}
 
     outputs:
-      image: ${{ steps.matrix-out.outputs.image }}
+      image: ${{ toJson(fromJson(steps.matrix-out.outputs.image).image) }}
