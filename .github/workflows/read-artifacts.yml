@@ -11,7 +11,10 @@ on:
         required: false
         type: string
         default: null
-
+      matrix-output-key:
+        required: false
+        type: string
+        default: null
 jobs:
 
   test:
@@ -25,12 +28,20 @@ jobs:
 
     steps:
 
-      - id: read
+      - name: Install `jq`
+        uses: dcarbone/install-jq-action@v1.0.1
+        with:
+          version: '1.6'
+
+      - name: Read matrix outputs
+        id: read
         uses: cloudposse/github-action-matrix-outputs-read@main
         if: inputs.matrix-step-name
         with:
           matrix-step-name: ${{ inputs.matrix-step-name }}
 
-      - if: inputs.matrix-step-name
+      - name: Inspect
+        if: inputs.matrix-step-name
         run: |
           echo '${{ steps.read.outputs.result }}'
+          echo '${{ steps.read.outputs.result }}' | jq 'keys[]'
