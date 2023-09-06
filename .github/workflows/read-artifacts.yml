@@ -10,6 +10,11 @@ on:
       matrix-step-name:
         required: true
         type: string
+      tfvars:
+        required: false
+        type: string
+        default: images.auto.tfvars
+
 jobs:
 
   test:
@@ -33,15 +38,7 @@ jobs:
         with:
           matrix-step-name: ${{ inputs.matrix-step-name }}
 
-      - name: Inspect
-        run: |
-          echo '${{ steps.read.outputs.result }}'
-
-
       - name: Parse
         run: |
-          echo '${{ steps.read.outputs.result }}' | jq -r '.image | to_entries[] | "\(.key|gsub("-";"_"))=\"\(.value)\"" | "TF_VAR_\(.)"' > output.txt
-          cat output.txt
-
-
-
+          echo '${{ steps.read.outputs.result }}' | jq -r '.image | to_entries[] | "\(.key|gsub("-";"_")) = \"\(.value)\"" | "image_\(.)"' > ${{ inputs.tfvars }}
+          cat ${{ inputs.tfvars }}
