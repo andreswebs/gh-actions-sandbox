@@ -39,4 +39,4 @@ jobs:
       - name: Inspect
         if: ${{ inputs.matrix-step-name }}
         run: |
-          echo '${{ steps.read.outputs.result }}' | jq '.'
+          echo '${{ steps.read.outputs.result }}' | jq '.image'
