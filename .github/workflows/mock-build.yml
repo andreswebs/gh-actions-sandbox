@@ -15,6 +15,10 @@ on:
         required: false
         type: string
         default: null
+      matrix-output-key:
+        required: false
+        type: string
+        default: image
 
     outputs:
       image:
@@ -46,7 +50,7 @@ jobs:
           matrix-step-name: ${{ inputs.matrix-step-name }}
           matrix-key: ${{ inputs.matrix-key }}
           outputs: |-
-            image: ${{ steps.build.outputs.image }}
+            ${{ inputs.matrix-output-key }}: ${{ steps.build.outputs.image }}
 
     outputs:
       image: ${{ steps.matrix-out.outputs.image }}
