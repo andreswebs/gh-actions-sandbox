@@ -25,11 +25,6 @@ jobs:
 
       - name: Inspect
         env:
-          EVENT: ${{ github.event_name }}
+          EVENT_STATUS: ${{ github.event_name != 'pull_request' }}
         run: |
-          echo "${EVENT}"
-          if [ "${EVENT}" != "pull_request" ]; then
-            echo "A"
-          else
-            echo "B"
-          fi
+          echo "event-status: ${EVENT_STATUS}"
