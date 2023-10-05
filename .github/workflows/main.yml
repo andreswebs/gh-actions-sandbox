@@ -28,7 +28,7 @@ jobs:
           EVENT: ${{ github.event_name }}
         run: |
           echo "${EVENT}"
-          if [ "${EVENT}" = "pull_request" ]; then
+          if [ "${EVENT}" != "pull_request" ]; then
             echo "A"
           else
             echo "B"
