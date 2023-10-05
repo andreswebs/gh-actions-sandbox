@@ -24,5 +24,12 @@ jobs:
     steps:
 
       - name: Inspect
+        env:
+          EVENT: ${{ github.event_name }}
         run: |
-          echo ${{ github.event_name }}
+          echo "${EVENT}"
+          if [ "${EVENT}" = "pull_request" ]; then
+            echo "A"
+          else
+            echo "B"
+          fi
