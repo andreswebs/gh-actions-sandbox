@@ -33,7 +33,7 @@ jobs:
 
       - name: Inspect
         run: |
-          echo "value: ${{ env.MY_THING }}"
+          echo "value: ${{ vars.MY_THING }}"
 
   example-live:
 
@@ -49,4 +49,4 @@ jobs:
 
       - name: Inspect
         run: |
-          echo "value: ${{ env.MY_THING }}"
+          echo "value: ${{ vars.MY_THING }}"
