@@ -13,9 +13,33 @@ on:
 
 jobs:
 
-  example:
+  example-dev:
 
     runs-on: ubuntu-latest
+
+    environment: dev
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+
+      # - name: Inspect
+      #   env:
+      #     EVENT_STATUS: ${{ github.event_name != 'pull_request' }}
+      #   run: |
+      #     echo "event-status: ${EVENT_STATUS}"
+
+      - name: Inspect
+        run: |
+          echo "value: ${{ env.MY_THING }}"
+
+  example-live:
+
+    runs-on: ubuntu-latest
+
+    environment: live
 
     defaults:
       run:
@@ -24,7 +48,5 @@ jobs:
     steps:
 
       - name: Inspect
-        env:
-          EVENT_STATUS: ${{ github.event_name != 'pull_request' }}
         run: |
-          echo "event-status: ${EVENT_STATUS}"
+          echo "value: ${{ env.MY_THING }}"
