@@ -1,6 +1,10 @@
 ---
 name: Test
 
+permissions:
+  id-token: write
+  contents: read
+
 # yamllint disable-line rule:truthy
 on:
   workflow_dispatch:
