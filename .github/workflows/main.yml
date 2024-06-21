@@ -1,52 +1,23 @@
 ---
 name: Test
 
+# yamllint disable-line rule:truthy
 on:
-
-  push:
-    branches:
-      - main
-
-  pull_request:
-    branches:
-      - "*"
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: "The image tag to use"
+        required: true
 
 jobs:
-
-  example-dev:
-
-    runs-on: ubuntu-latest
-
-    environment: dev
-
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-
-      # - name: Inspect
-      #   env:
-      #     EVENT_STATUS: ${{ github.event_name != 'pull_request' }}
-      #   run: |
-      #     echo "event-status: ${EVENT_STATUS}"
-
-      - name: Inspect
-        run: |
-          echo "value: ${{ vars.MY_THING }}"
-
-  example-live:
-
-    runs-on: ubuntu-latest
-
-    environment: live
-
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-
-      - name: Inspect
-        run: |
-          echo "value: ${{ vars.MY_THING }}"
+  publish:
+    name: Publish to ECR
+    uses: andreswebs/gh-actions/.github/workflows/aws-ecr-publish-image.yml@main
+    with:
+      runs-on: ubuntu-latest
+      aws-region: us-east-1
+      role-to-assume: ${{ vars.AWS_IAM_ROLE }}
+      ecr-repo-name: test-1
+      context-dir: .
+      image-default-tag: ${{ github.event.inputs.image-tag }}
+      add-image-default-tag: true
