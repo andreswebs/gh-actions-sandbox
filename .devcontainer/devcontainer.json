@@ -2,7 +2,10 @@
   "name": "example",
   "image": "mcr.microsoft.com/devcontainers/base:bookworm",
   "features": {
-    "ghcr.io/andreswebs/features/nix:1": {}
+    "ghcr.io/devcontainers/features/nix:1": {
+      "multiUser": true,
+      "version": "latest"
+    }
   },
   "customizations": {
     "vscode": {
