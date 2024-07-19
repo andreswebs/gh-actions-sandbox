@@ -1,22 +1,31 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.231.6/containers/debian
 {
   "name": "example",
-  "image": "mcr.microsoft.com/vscode/devcontainers/universal:latest",
-  // Configure tool-specific properties.
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/andreswebs/features/nix:1": {}
+  },
   "customizations": {
-    // Configure properties specific to VS Code.
     "vscode": {
-      // Set *default* container specific settings.json values on container create.
       "settings": {
-        "editor.formatOnSave": true,
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/bin/zsh"
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh",
         "files.insertFinalNewline": true,
-        // Add the IDs of extensions you want installed when the container is created.
+        "editor.formatOnSave": true,
+        "editor.suggestSelection": "first",
         "extensions": [
           "GitHub.copilot",
-          "EditorConfig.EditorConfig"
+          "EditorConfig.EditorConfig",
+          "ms-azuretools.vscode-docker",
+          "timonwong.shellcheck",
+          "redhat.vscode-yaml",
+          "yzhang.markdown-all-in-one",
+          "DavidAnson.vscode-markdownlint",
+          "ms-vscode.makefile-tools"
         ],
-        "editor.suggestSelection": "first",
         "files.exclude": {
           "**/.classpath": true,
           "**/.project": true,
