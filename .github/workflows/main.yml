@@ -23,6 +23,6 @@ jobs:
       role-to-assume: ${{ vars.AWS_IAM_ROLE }}
       ecr-repo-name: test-1
       context-dir: .
-      use-hash: false
+      use-hash: true
       image-default-tag: ${{ github.event.inputs.image-tag }}
       add-image-default-tag: true
