@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 
-FROM alpine:latest as base
+FROM alpine:latest AS base
 
-FROM base as build
+FROM base AS build
 RUN echo -e '#!/bin/sh\n\
 echo Hello world from $(whoami)! In order to get your application running in a container, take a look at the comments in the Dockerfile to get started.'\
 > /bin/hello.sh
