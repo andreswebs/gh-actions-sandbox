@@ -16,12 +16,13 @@ on:
 jobs:
   publish:
     name: Publish to ECR
-    uses: andreswebs/gh-actions/.github/workflows/aws-ecr-publish-image.yml@main
+    uses: andreswebs/gh-actions/.github/workflows/aws-ecr-push-image.yml@main
     with:
       runs-on: ubuntu-latest
       aws-region: us-east-1
       role-to-assume: ${{ vars.AWS_IAM_ROLE }}
       ecr-repo-name: test-1
       context-dir: .
+      use-hash: false
       image-default-tag: ${{ github.event.inputs.image-tag }}
       add-image-default-tag: true
