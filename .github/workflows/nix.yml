@@ -1,0 +1,25 @@
+---
+name: Nix
+
+permissions:
+  id-token: write
+  contents: read
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Enable Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Install difftastic
+        run: |
+          nix-env --install difftastic --file '<nixpkgs>'
