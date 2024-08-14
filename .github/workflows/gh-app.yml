@@ -1,0 +1,21 @@
+---
+name: GH App
+
+permissions:
+  id-token: write
+  contents: read
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+
+jobs:
+  gh-app:
+    name: gh app auth
+    runs-on: ubuntu-latest
+    steps:
+      - name: auth
+        uses: andreswebs/gh-actions/.github/actions/gh-app-auth@dev
+        with:
+          client-id: ${{ secrets.GH_APP_CLIENT_ID }}
+          prv-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
