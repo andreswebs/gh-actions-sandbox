@@ -18,4 +18,4 @@ jobs:
         uses: andreswebs/gh-actions/.github/actions/gh-app-auth@dev
         with:
           client-id: ${{ secrets.GH_APP_CLIENT_ID }}
-          prv-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          prv-key: ${{ secrets.GH_APP_PRV_KEY }}
