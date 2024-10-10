@@ -7,11 +7,16 @@ permissions:
 
 # yamllint disable-line rule:truthy
 on:
-  workflow_dispatch:
-    inputs:
-      image-tag:
-        description: "The image tag to use"
-        required: true
+  # workflow_dispatch:
+  #   inputs:
+  #     image-tag:
+  #       description: "The image tag to use"
+  #       required: true
+  push:
+    branches:
+      - main
+    tags:
+      - '**'
 
 jobs:
   publish:
@@ -24,5 +29,7 @@ jobs:
       ecr-repo-name: test-1
       context-dir: .
       use-hash: true
-      image-default-tag: ${{ github.event.inputs.image-tag }}
-      add-image-default-tag: true
+      add-image-default-tag: ${{ github.event == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      image-default-tag: ${{ github.ref_name }}
+      # image-default-tag: ${{ github.event.inputs.image-tag }}
+      # add-image-default-tag: true
