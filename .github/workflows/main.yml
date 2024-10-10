@@ -21,7 +21,7 @@ on:
 jobs:
   publish:
     name: Publish to ECR
-    uses: andreswebs/gh-actions/.github/workflows/aws-ecr-push-image.yml@dev
+    uses: andreswebs/gh-actions/.github/workflows/aws-ecr-push-image.yml@main
     with:
       runs-on: ubuntu-latest
       aws-region: us-east-1
