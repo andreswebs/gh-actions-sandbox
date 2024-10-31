@@ -2,10 +2,6 @@
   "name": "example",
   "image": "mcr.microsoft.com/devcontainers/base:bookworm",
   "features": {
-    "ghcr.io/devcontainers/features/nix:1": {
-      "multiUser": true,
-      "version": "latest"
-    },
     "ghcr.io/andreswebs/features/zsh-starship:latest": {}
   },
   "runArgs": [
