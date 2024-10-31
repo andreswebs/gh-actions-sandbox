@@ -5,7 +5,8 @@
     "ghcr.io/devcontainers/features/nix:1": {
       "multiUser": true,
       "version": "latest"
-    }
+    },
+    "ghcr.io/andreswebs/features/zsh-starship:latest": {}
   },
   "runArgs": [
     "--cap-add=NET_ADMIN",
@@ -31,7 +32,6 @@
           "timonwong.shellcheck",
           "redhat.vscode-yaml",
           "yzhang.markdown-all-in-one",
-          "DavidAnson.vscode-markdownlint",
           "ms-vscode.makefile-tools"
         ],
         "files.exclude": {
