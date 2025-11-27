@@ -1,7 +1,10 @@
 {
-  "name": "example",
+  "name": "sandbox",
   "image": "mcr.microsoft.com/devcontainers/base:trixie",
   "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": false
+    },
     "ghcr.io/andreswebs/features/zsh-starship:latest": {}
   },
   "runArgs": [
@@ -20,22 +23,7 @@
         "terminal.integrated.defaultProfile.linux": "zsh",
         "files.insertFinalNewline": true,
         "editor.formatOnSave": true,
-        "editor.suggestSelection": "first",
-        "extensions": [
-          "GitHub.copilot",
-          "EditorConfig.EditorConfig",
-          "ms-azuretools.vscode-docker",
-          "timonwong.shellcheck",
-          "redhat.vscode-yaml",
-          "yzhang.markdown-all-in-one",
-          "ms-vscode.makefile-tools"
-        ],
-        "files.exclude": {
-          "**/.classpath": true,
-          "**/.project": true,
-          "**/.settings": true,
-          "**/.factorypath": true
-        }
+        "editor.suggestSelection": "first"
       }
     }
   }
