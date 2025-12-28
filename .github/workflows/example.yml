@@ -1,0 +1,25 @@
+---
+name: Test
+
+permissions:
+  id-token: write
+  contents: read
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+
+  # push:
+  #   branches:
+  #     - main
+  #   tags:
+  #     - "**"
+
+jobs:
+  test:
+    name: Smoke Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install difftastic
+        run: |
+          echo 'ok'
