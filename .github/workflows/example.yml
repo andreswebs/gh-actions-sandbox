@@ -20,6 +20,6 @@ jobs:
     name: Smoke Test
     runs-on: ubuntu-latest
     steps:
-      - name: Install difftastic
+      - name: Inspect
         run: |
-          echo 'ok'
+          docker ps -a
